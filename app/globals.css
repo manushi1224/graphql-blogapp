@@ -31,3 +31,15 @@ body {
     text-wrap: balance;
   }
 }
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+h3{
+  @apply text-2xl font-semibold;
+}
+
+p{
+  @apply text-base m-3;
+}

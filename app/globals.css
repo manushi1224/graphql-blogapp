@@ -18,12 +18,9 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
+  background: linear-gradient(to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
 @layer utilities {
@@ -36,10 +33,49 @@ body {
   display: block;
 }
 
-h3{
+h3 {
   @apply text-2xl font-semibold;
 }
 
-p{
+p {
   @apply text-base m-3;
+}
+
+code {
+  @apply text-lg
+}
+
+pre {
+  @apply bg-slate-400 p-6 rounded-lg bg-opacity-25;
+}
+
+blockquote {
+  position: relative;
+  @apply border-l-4 border-fuchsia-400 pl-6 my-6;
+}
+
+blockquote::before {
+  font-family: Arial;
+  content: "\201C";
+  font-size: 4em;
+  position: absolute;
+  left: 10px;
+  top: -15px;
+  @apply text-fuchsia-400
+}
+
+blockquote::after {
+  content: ""
+}
+
+blockquote p {
+  @apply italic text-xl;
+}
+
+blockquote h2 {
+  @apply text-2xl font-semibold italic text-fuchsia-400;
+}
+
+.rich-text p a {
+  @apply text-blue-500 underline;
 }

@@ -14,7 +14,7 @@ function BlogCard({ blogs }: any) {
             <div>
               <div className="p-3">
                 <Image
-                  className="rounded-lg"
+                  className="rounded-lg object-cover w-full h-52"
                   src={blog.node.coverImage.url}
                   height={200}
                   width={400}
@@ -24,7 +24,7 @@ function BlogCard({ blogs }: any) {
               </div>
               <div className="border-l-4 border-l-fuchsia-600 h-8">
                 <div className="mx-3 pt-1 text-base text-fuchsia-500 font-semibold">
-                  {blog.node.category.name}
+                  {blog.node.category.category}
                 </div>
               </div>
               <div className="p-5 mb-12">

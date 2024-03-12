@@ -2,7 +2,6 @@ import { validate } from "graphql";
 import { GraphQLClient, gql } from "graphql-request";
 import { NextRequest, NextResponse } from "next/server";
 
-export const revalidate = 0;
 export const dynamic = "force-dynamic";
 
 const { NEXT_PUBLIC_GRAPHCMS_ENDPOINT, NEXT_PUBLIC_HYGRAPH_TOKEN } =
@@ -20,6 +19,7 @@ const individualPost = gql`
         node {
           createdAt
           title
+          excerpt
           category {
             category
           }

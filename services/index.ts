@@ -1,5 +1,4 @@
-import { hash } from "bcrypt";
-import { request, gql, GraphQLClient } from "graphql-request";
+import { gql, GraphQLClient } from "graphql-request";
 
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 const customGraphToken = process.env.NEXT_PUBLIC_HYGRAPH_TOKEN;
@@ -61,6 +60,7 @@ const GetUserByEmail = async (email: string) => {
 };
 
 const getCategoryByName = async (name: string) => {
+  console.log("cateegory is:", name);
   const getCategoryByName = gql`
     query getCategoryByNameQuery($name: String!) {
       categories(where: { category: $name }, stage: DRAFT) {

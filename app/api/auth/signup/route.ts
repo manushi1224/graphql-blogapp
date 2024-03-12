@@ -2,6 +2,7 @@ import { GraphQLClient, gql } from "graphql-request";
 import bcrypt from "bcrypt";
 import { NextRequest, NextResponse } from "next/server";
 import { GetUserByEmail } from "@/services";
+import { publishAuthor } from "@/app/lib/publishControllers";
 
 const { NEXT_PUBLIC_GRAPHCMS_ENDPOINT, NEXT_PUBLIC_HYGRAPH_TOKEN } =
   process.env;
@@ -42,11 +43,18 @@ export async function POST(req: NextRequest, res: NextResponse) {
     name,
     bio,
   };
-  const response: any = await client.request(CreateNextUserMutation, {
-    userData,
-  });
-  return NextResponse.json({
-    message: "User Created Successfully!",
-    status: 200,
-  });
+
+  try {
+    const response: any = await client.request(CreateNextUserMutation, {
+      userData,
+    });
+    await publishAuthor(response.createAuthor.id);
+    return NextResponse.json({
+      message: "User Created Successfully!",
+      status: 200,
+    });
+  } catch (error: any) {
+    console.log(error);
+    return NextResponse.json({ message: error.message, status: 500 });
+  }
 }

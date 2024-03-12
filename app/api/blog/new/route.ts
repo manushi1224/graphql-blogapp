@@ -3,6 +3,7 @@ import { GraphQLClient, gql } from "graphql-request";
 import { NextResponse, NextRequest } from "next/server";
 import { htmlToSlateAST } from "@graphcms/html-to-slate-ast";
 import { uploadAsset } from "@/app/lib/uploadAsset";
+import { publishAsset, publishPost } from "@/app/lib/publishControllers";
 
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 const customGraphToken = process.env.NEXT_PUBLIC_HYGRAPH_TOKEN;
@@ -18,8 +19,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const data = await req.formData();
   const fileUpload = data.get("file");
   const form: any = new FormData();
+  console.log(data.get("description") as string);
   form.append("fileUpload", fileUpload);
   const image_id = await uploadAsset(form);
+  console.log(image_id);
 
   const { user } = await GetUserByEmail(data.get("author") as string);
   const { categories } = await getCategoryByName(
@@ -38,6 +41,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
     author: user?.id,
     image_id: image_id,
   };
+
+  await publishAsset(image_id);
 
   const mutation = gql`
     mutation createPost(
@@ -69,12 +74,15 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   try {
     const blogCreated: any = await client.request(mutation, blogData);
+    if (blogCreated.createPost.id) {
+      await publishPost(blogCreated.createPost.id);
+    }
     console.log(blogCreated);
     return NextResponse.json({ message: "Blog Created", status: 201 });
   } catch (error: any) {
     console.log(error);
     return NextResponse.json({
-      message: "Error Creating Blog",
+      message: error.message,
       status: 500,
       error: error.message,
     });

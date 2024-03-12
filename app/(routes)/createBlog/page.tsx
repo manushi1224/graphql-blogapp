@@ -1,10 +1,10 @@
+import RichTextEditor from "@/app/components/RichTextEditor/RichTextEditor";
 import React from "react";
-import RichTextEditor from "../components/RichTextEditor/RichTextEditor";
 
 function Page() {
   return (
     <div className="flex justify-center">
-      <RichTextEditor />
+      <RichTextEditor editMode={false} />
     </div>
   );
 }

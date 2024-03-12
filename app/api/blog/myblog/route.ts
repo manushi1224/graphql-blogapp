@@ -19,14 +19,18 @@ const getPostByUserId = gql`
     postsConnection(where: { author: { id: $id } }) {
       edges {
         node {
+          id
           author {
             name
+            id
           }
           category {
             category
+            id
           }
           coverImage {
             url
+            id
           }
           excerpt
           slug

@@ -55,7 +55,7 @@ export default async function Page({ params }: any) {
         />
       </div>
 
-    <div className="m-5" dangerouslySetInnerHTML={{ __html: `${data.content.html}` }}></div>
+    <div className="m-5 rich-text" dangerouslySetInnerHTML={{ __html: `${data.content.html}` }}></div>
     </div>
   );
 }

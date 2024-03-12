@@ -3,82 +3,48 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
+import InputField from "@/app/ui/InputField";
 
 export default function Page() {
   const router = useRouter();
-  const [formSuccess, setFormSuccess] = useState<boolean>(false);
-  const [message, setMessage] = useState<string>("");
   const [user, setUser] = useState<any>({
     name: "",
     email: "",
     password: "",
     bio: "",
   });
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const closeAlert = () => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 5000);
-  };
-
-  const loadAlertData = ({
-    success,
-    msg,
-    load,
-  }: {
-    success: boolean;
-    msg: string;
-    load: boolean;
-  }) => {
-    setFormSuccess(success);
-    setMessage(msg);
-    setLoading(load);
-    closeAlert();
-  };
 
   const onSignup = async (event: any) => {
     event.preventDefault();
     try {
       if (!user.name || !user.email || !user.password || !user.bio) {
-        loadAlertData({
-          success: false,
-          msg: "Please fill all the fields",
-          load: true,
-        });
+        toast.error("All fields are required");
         return;
       }
       const emailRegex = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
       if (!emailRegex.test(user.email)) {
-        loadAlertData({
-          success: false,
-          msg: " Invalid Email ID!",
-          load: true,
-        });
+        toast.error("Invalid Email");
         return;
       }
-        const res = await axios.post(`${process.env.NEXT_PUBLIC_API}/api/auth/signup`, user);
-        if (res.data.status === 200) {
-          loadAlertData({
-            success: true,
-            msg: "Account Created !",
-            load: true,
-          });
-          router.push("/login");
-        }
-        loadAlertData({
-          success: false,
-          msg: res.data.message,
-          load: true,
-        });
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/api/auth/signup`,
+        user
+      );
+      if (res.data.status === 200) {
+        toast.success("Signup Successful");
+        router.push("/login");
+      }
+      toast.success("Something went wrong, Please try again");
     } catch (error: any) {
-      setFormSuccess(false);
+      toast.error(error.message);
       console.log("Signup failed", error);
     }
   };
 
   return (
     <>
+      <Toaster />
       <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-5 text-center text-4xl font-extrabold leading-9 tracking-tight text-gray-200">
@@ -92,90 +58,34 @@ export default function Page() {
             onSubmit={(event) => onSignup(event)}
             method="POST"
           >
-            <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium leading-6 text-gray-200"
-              >
-                Full Name
-              </label>
-              <div className="mt-2">
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  autoComplete="name"
-                  //   required
-                  onChange={(e) => setUser({ ...user, name: e.target.value })}
-                  className="block p-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-                ></input>
-              </div>
-            </div>
-
-            <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium leading-6 text-gray-200"
-              >
-                Tell Us Something About you
-              </label>
-              <div className="mt-2">
-                <input
-                  id="bio"
-                  name="bio"
-                  type="text"
-                  autoComplete="bio"
-                  //   required
-                  onChange={(e) => setUser({ ...user, bio: e.target.value })}
-                  className="block p-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-                ></input>
-              </div>
-            </div>
-
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-200"
-              >
-                Email address
-              </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  //   required
-                  onChange={(e) => setUser({ ...user, email: e.target.value })}
-                  className="block p-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-                ></input>
-              </div>
-            </div>
-
-            <div>
-              <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-200"
-                >
-                  Password
-                </label>
-              </div>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  //   required
-                  onChange={(e) =>
-                    setUser({ ...user, password: e.target.value })
-                  }
-                  className="block p-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-                ></input>
-              </div>
-            </div>
-
+            <InputField
+              user={user}
+              setUser={setUser}
+              type="text"
+              label="Full Name"
+              name="name"
+            />
+            <InputField
+              user={user}
+              setUser={setUser}
+              type="text"
+              label="Tell us about yourself!"
+              name="bio"
+            />
+            <InputField
+              user={user}
+              setUser={setUser}
+              type="email"
+              label="Email Address"
+              name="email"
+            />
+            <InputField
+              user={user}
+              setUser={setUser}
+              type="password"
+              label="Password"
+              name="password"
+            />
             <div>
               <button
                 type="submit"

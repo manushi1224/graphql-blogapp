@@ -18,6 +18,7 @@ async function getPosts() {
       postsConnection {
         edges {
           node {
+            id
             createdAt
             category {
               category
@@ -38,7 +39,7 @@ async function getPosts() {
   `;
 
   const response: any = await graphQLClient.request(query);
-  return response.postsConnection;
+  return response.postsConnection.edges;
 }
 
 const GetUserByEmail = async (email: string) => {

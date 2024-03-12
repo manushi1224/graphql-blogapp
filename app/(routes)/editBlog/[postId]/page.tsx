@@ -1,9 +1,9 @@
-import RichTextEditor from "@/app/components/RichTextEditor/RichTextEditor";
+import PostForm from "@/app/components/PostForm/PostForm";
 import React from "react";
 
 async function getPostData(postId: string) {
   const response: any = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/api/blog/getBlog/${postId}`,
+    `${process.env.NEXT_PUBLIC_API}/api/blog/handleBlog/${postId}`,
     { cache: "no-cache" }
   );
   const post = await response.json();
@@ -16,7 +16,7 @@ async function Page({ params }: any) {
   console.log(post);
   return (
     <div>
-      <RichTextEditor editMode={true} postId={id} postData={post[0]?.node} />
+      <PostForm editMode={true} postId={id} postData={post[0]?.node} />
     </div>
   );
 }

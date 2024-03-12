@@ -2,8 +2,8 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { deleteAsset } from "../lib/deleteAsset";
 import { publishAuthor, publishCategory } from "../lib/publishControllers";
+import { deleteAsset } from "../lib/asssetController";
 
 function DeleteModal({
   id,
@@ -16,7 +16,7 @@ function DeleteModal({
   const router = useRouter();
   const deletePost = async () => {
     const response = await axios.delete( // Change the HTTP method to 'delete'
-      `${process.env.NEXT_PUBLIC_API}/api/blog/deleteBlog/${id}`
+      `${process.env.NEXT_PUBLIC_API}/api/blog/handleBlog/${id}`
     );
     if (response.data.status === 200) {
       await deleteAsset(imageId);

@@ -2,13 +2,16 @@ import Image from "next/image";
 import Link from "next/link";
 
 function BlogCard({ blogs }: any) {
+  if (blogs.length === 0) {
+    return <div>No blogs to be shown</div>;
+  }
   return (
     <div className="w-[75%] grid grid-cols-3 gap-10 max-md:grid-cols-2 max-sm:grid-cols-1">
-      {blogs.map((blog: any) => {
+      {blogs.map((blog: any, index: number) => {
         return (
           <Link
             href={`/blog/${blog.node.slug}`}
-            key={blog.node.slug}
+            key={index}
             className="max-w-sm relative bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 shadow-gray-600"
           >
             <div>

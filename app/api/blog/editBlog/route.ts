@@ -1,13 +1,12 @@
+import { deleteAsset, uploadAsset } from "@/app/lib/asssetController";
 import client from "@/app/lib/client";
-import { deleteAsset } from "@/app/lib/deleteAsset";
 import { publishAsset, publishPost } from "@/app/lib/publishControllers";
-import { uploadAsset } from "@/app/lib/uploadAsset";
 import { getCategoryByName } from "@/services";
 import htmlToSlateAST from "@graphcms/html-to-slate-ast";
 import { gql } from "graphql-request";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest) {
+export async function PATCH(req: NextRequest) {
   const data = await req.formData();
   const fileUpload = data.get("file");
   let image_id: any;

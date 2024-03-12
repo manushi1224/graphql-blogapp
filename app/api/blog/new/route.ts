@@ -2,7 +2,7 @@ import { GetUserByEmail, getCategoryByName } from "@/services";
 import { GraphQLClient, gql } from "graphql-request";
 import { NextResponse, NextRequest } from "next/server";
 import { htmlToSlateAST } from "@graphcms/html-to-slate-ast";
-import { uploadAsset } from "@/app/lib/uploadAsset";
+import { uploadAsset } from "@/app/lib/asssetController";
 import { publishAsset, publishPost } from "@/app/lib/publishControllers";
 
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;

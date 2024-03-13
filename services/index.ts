@@ -29,6 +29,7 @@ async function getPosts() {
             slug
             title
             excerpt
+            featuredPost
             coverImage {
               url
             }

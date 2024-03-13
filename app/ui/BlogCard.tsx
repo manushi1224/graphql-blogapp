@@ -6,7 +6,7 @@ function BlogCard({ blogs }: any) {
     return <div>No blogs to be shown</div>;
   }
   return (
-    <div className="w-[75%] grid grid-cols-3 gap-10 max-md:grid-cols-2 max-sm:grid-cols-1">
+    <div className="w-full grid grid-cols-3 gap-6 max-md:grid-cols-2 max-sm:grid-cols-1">
       {blogs.map((blog: any, index: number) => {
         return (
           <Link

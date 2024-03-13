@@ -25,7 +25,7 @@ const nextConfig = {
       remotePatterns: [
         {
           protocol: "https",
-          hostname: "contenthub-static.grammarly.com",
+          hostname: "dfstudio-d420.kxcdn.com",
           port: "",
           pathname: "/**",
         },

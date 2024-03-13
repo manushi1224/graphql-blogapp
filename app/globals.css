@@ -38,7 +38,7 @@ h3 {
 }
 
 p {
-  @apply text-base m-3;
+  @apply text-base my-3;
 }
 
 code {

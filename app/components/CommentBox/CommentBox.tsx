@@ -8,7 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 export const dynamic = "force-dynamic";
 
-function CommentBox({ likeCount, dislikeCount, slug, postId, likes }: any) {
+function CommentBox({slug, postId, likes }: any) {
   const [comment, setComment] = useState<string>("");
   const { data: session } = useSession();
   const router = useRouter();

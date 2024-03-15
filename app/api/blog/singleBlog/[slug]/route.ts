@@ -40,7 +40,6 @@ const individualPost = gql`
               name
             }
           }
-          likeCount
         }
       }
     }

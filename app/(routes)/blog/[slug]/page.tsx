@@ -67,8 +67,6 @@ export default async function Page({ params }: any) {
         </div>
         <div className="max-w-screen-xl mx-auto">
           <CommentBox
-            likeCount={data.likeCount}
-            dislikeCount={data.dislikeCount}
             slug={params.slug}
             postId={data.id}
             likes={data.likes.length}

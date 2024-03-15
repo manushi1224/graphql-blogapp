@@ -2,7 +2,11 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { publishAuthor, publishCategory } from "../lib/publishControllers";
+import {
+  publishAuthor,
+  publishCategory,
+  publishPost,
+} from "../lib/publishControllers";
 import { deleteAsset } from "../lib/asssetController";
 
 function DeleteModal({
@@ -12,10 +16,13 @@ function DeleteModal({
   imageId,
   catId,
   authId,
+  isComment,
+  slug,
+  postId,
 }: any) {
   const router = useRouter();
   const deletePost = async () => {
-    const response = await axios.delete( // Change the HTTP method to 'delete'
+    const response = await axios.delete(
       `${process.env.NEXT_PUBLIC_API}/api/blog/handleBlog/${id}`
     );
     if (response.data.status === 200) {
@@ -25,6 +32,20 @@ function DeleteModal({
       deletePostHandler(true);
     }
     router.push("/myBlogs");
+    router.refresh();
+    closePopup(false);
+  };
+
+  const deleteComment = async () => {
+    console.log("comment id", id);
+    const response = await axios.delete(
+      `${process.env.NEXT_PUBLIC_API}/api/comment/handleComment/${id}`
+    );
+    if (response.data.status === 200) {
+      deletePostHandler(true);
+      await publishAuthor(authId);
+      await publishPost(postId);
+    }
     router.refresh();
     closePopup(false);
   };
@@ -79,7 +100,9 @@ function DeleteModal({
             <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
               <button
                 type="button"
-                onClick={() => deletePost()}
+                onClick={() => {
+                  isComment ? deleteComment() : deletePost();
+                }}
                 className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
               >
                 Delete

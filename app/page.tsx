@@ -17,10 +17,13 @@ export default function Home({
     <main>
       <div className="w-full px-16 pb-10 grid grid-cols-12">
         <div className="col-span-8">
-          <FilterTabs />
-          <div className="flex justify-center w-full">
-            <SearchInput placeholder={"Search by Title...."} />
+          <div className="sticky top-[4rem] z-10 bg-black p-2 gap-0">
+            <FilterTabs />
+            <div className="flex justify-center w-full">
+              <SearchInput placeholder={"Search by Title...."} />
+            </div>
           </div>
+
           {/* <h1 className="text-4xl text-center p-10 font-extrabold">
             All Posts
           </h1> */}
@@ -28,7 +31,7 @@ export default function Home({
             <Blogs query={query} />
           </Suspense>
         </div>
-        <div className="col-span-4 fixed z-20 top-[3.8125rem] bottom-0 right-[max(0px,calc(50%-45rem))] w-[25rem] py-10 overflow-y-auto hidden xl:block">
+        <div className="col-span-4 fixed top-[3.8125rem] bottom-0 right-[max(0px,calc(50%-45rem))] w-[25rem] py-10 overflow-y-auto hidden xl:block">
           <h1 className="text-xl font-extrabold pb-4">Featured Posts</h1>
           <hr />
           <FeaturedPosts />

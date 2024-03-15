@@ -13,7 +13,7 @@ async function getFeturedBlogs() {
 async function FeaturedPosts() {
   const featuredBlogs = await getFeturedBlogs();
   return (
-    <div className="mt-5">
+    <div>
       <FeaturedPostCard posts={featuredBlogs} />
     </div>
   );

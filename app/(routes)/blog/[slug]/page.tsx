@@ -1,3 +1,7 @@
+import CommentBox from "@/app/components/CommentBox/CommentBox";
+import CommentSection from "@/app/components/CommentSection/CommentSection";
+import FeaturedPosts from "@/app/components/FeautredPosts/FeaturedPosts";
+import FeaturedPostCard from "@/app/ui/FeaturedPostCard";
 import { getPosts } from "@/services";
 import Image from "next/image";
 
@@ -26,41 +30,57 @@ export default async function Page({ params }: any) {
   const data = await getBlogBySlug(params.slug);
 
   return (
-    <div
-      key={data.id}
-      className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto"
-    >
-      <div className="p-2 mt-16">
-        <h2 className="text-4xl font-bold w-[70%]">{data.title}</h2>
-        <div className="flex pt-5">
-          <h4 className="text-lg font-semibold text-fuchsia-400 pe-3">
-            {data.category.category}
-          </h4>
-          |
-          <h4 className="text-lg font-semibold text-fuchsia-400 px-3">
-            {data.createdAt.split("T")[0]}
-          </h4>
-          |
-          <h4 className="text-lg font-semibold text-fuchsia-400 px-3">
-            {data.author.name}
-          </h4>
-        </div>
-        <h4 className="pt-5 text-lg w-[50%]">{data.excerpt}</h4>
-      </div>
-      <div className="mt-16">
-        <Image
-          height={200}
-          width={500}
-          src={data.coverImage.url}
-          alt="data-img"
-          className="pt-5 object-cover w-[55rem] max-md:w-[40rem] max-sm:w-[20rem] max-sm:h-[20rem] max-md:h-[40rem] h-[30rem]"
-        />
-      </div>
+    <div className="py-10 grid grid-cols-12 max-w-screen-xl flex-wrap items-center justify-between mx-auto">
+      <div className="col-span-8">
+        <div className="flex flex-wrap items-center justify-between">
+          <div className="p-2 mt-10">
+            <h2 className="text-4xl font-bold w-[80%]">{data.title}</h2>
+            <div className="flex pt-5">
+              <h4 className="text-lg font-semibold text-fuchsia-400 pe-3">
+                {data.category.category}
+              </h4>
+              |
+              <h4 className="text-lg font-semibold text-fuchsia-400 px-3">
+                {data.createdAt.split("T")[0]}
+              </h4>
+              |
+              <h4 className="text-lg font-semibold text-fuchsia-400 px-3">
+                {data.author.name}
+              </h4>
+            </div>
+            <h4 className="pt-5 text-lg w-[70%]">{data.excerpt}</h4>
+          </div>
+          <div className="mt-16">
+            <Image
+              height={200}
+              width={500}
+              src={data.coverImage.url}
+              alt="data-img"
+              className="pt-5 object-cover w-[55rem] max-md:w-[40rem] max-sm:w-[20rem] max-sm:h-[20rem] max-md:h-[40rem] h-[30rem]"
+            />
+          </div>
 
-      <div
-        className="my-5 rich-text w-[60%] ps-0"
-        dangerouslySetInnerHTML={{ __html: `${data.content.html}` }}
-      ></div>
+          <div
+            className="my-5 rich-text w-[80%] ps-0"
+            dangerouslySetInnerHTML={{ __html: `${data.content.html}` }}
+          ></div>
+        </div>
+        <div className="max-w-screen-xl mx-auto">
+          <CommentBox
+            likeCount={data.likeCount}
+            dislikeCount={data.dislikeCount}
+            slug={params.slug}
+            postId={data.id}
+            likes={data.likes.length}
+          />
+          <CommentSection slug={params.slug} />
+        </div>
+      </div>
+      <div className="col-span-4 fixed top-[7rem] bottom-0 right-[max(0px,calc(50%-45rem))] w-[25rem] overflow-y-auto hidden xl:block">
+        <h1 className="text-xl font-extrabold pb-4">Featured Posts</h1>
+        <hr />
+        <FeaturedPosts />
+      </div>
     </div>
   );
 }

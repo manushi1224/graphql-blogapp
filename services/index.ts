@@ -33,6 +33,12 @@ async function getPosts() {
             coverImage {
               url
             }
+            likes {
+              author {
+                id
+                name
+              }
+            }
           }
         }
       }
@@ -79,4 +85,60 @@ const getCategoryByName = async (name: string) => {
   return { categories: getUserResponse.categories[0] };
 };
 
-export { GetUserByEmail, getPosts, getCategoryByName };
+async function getAllComments(slug: string) {
+  const query = gql`
+    query MyQuery($slug: String!) {
+      commentsConnection(where: { post: { slug: $slug } }) {
+        edges {
+          node {
+            authors {
+              name
+              id
+              email
+            }
+            post {
+              id
+              slug
+            }
+            comment
+            createdAt
+            id
+          }
+        }
+      }
+    }
+  `;
+
+  const response: any = await client.request(query, { slug });
+  return response.commentsConnection.edges;
+}
+
+async function getLikesByPostId(authId: string) {
+  const query = gql`
+    query MyQuery($authId: ID!) {
+      likesConnection(where: { author: { id: $authId } }) {
+        edges {
+          node {
+            posts {
+              title
+              slug
+              id
+            }
+            id
+          }
+        }
+      }
+    }
+  `;
+
+  const response: any = await client.request(query, { authId });
+  return response.likesConnection.edges;
+}
+
+export {
+  GetUserByEmail,
+  getPosts,
+  getCategoryByName,
+  getAllComments,
+  getLikesByPostId,
+};

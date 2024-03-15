@@ -18,7 +18,7 @@ export const SearchInput = ({ placeholder }: { placeholder: string }) => {
   }, 500);
 
   return (
-    <div className="search__input w-[70%] border-[2px] border-solid border-slate-500 flex flex-row items-center gap-4 px-1 my-5 rounded-[15px]">
+    <div className="search__input w-[70%] border-[2px] border-solid border-slate-500 flex flex-row items-center gap-4 px-1 my-3 rounded-[15px]">
       <label htmlFor="inputId" className="p-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"

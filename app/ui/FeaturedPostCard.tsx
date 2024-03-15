@@ -5,7 +5,10 @@ import React from "react";
 function FeaturedPostCard({ posts }: any) {
   return posts.map((post: any) => {
     return (
-      <Link href={`${process.env.NEXT_PUBLIC_API}/blog/${post.node.slug}`}>
+      <Link
+        href={`${process.env.NEXT_PUBLIC_API}/blog/${post.node.slug}`}
+        key={post.id}
+      >
         <div className="max-w-sm w-full lg:max-w-full lg:flex rounded-xl mt-5">
           <div className="h-10 lg:h-auto lg:w-48 flex-none bg-cover rounded-l max-lg:rounded-t text-center overflow-hidden">
             <Image
@@ -31,7 +34,9 @@ function FeaturedPostCard({ posts }: any) {
                 <span className="text-gray-300 text-sm font-semibold">
                   {post.node.author.name}
                 </span>
-                <div className="text-gray-400 text-sm">{post.node.createdAt.split("T")[0]}</div>
+                <div className="text-gray-400 text-sm">
+                  {post.node.createdAt.split("T")[0]}
+                </div>
               </div>
             </div>
           </div>

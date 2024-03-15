@@ -12,7 +12,7 @@ function BlogCard({ blogs }: any) {
           <Link
             href={`/blog/${blog.node.slug}`}
             key={index}
-            className="max-w-sm relative bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 shadow-gray-600"
+            className="max-w-sm cursor-pointer overflow-hidden relative transition-all duration-500 hover:translate-y-2 bg-gray-800 rounded-lg shadow-xl flex flex-row before:absolute before:w-full hover:before:top-0 before:duration-500 before:-top-1 before:h-1 before:bg-fuchsia-500"
           >
             <div>
               <div className="p-3">

@@ -9,7 +9,7 @@ const activeClass = {
 
 function FilterTabs({ category }: { category?: string }) {
   return (
-    <div className="flex justify-center m-5">
+    <div className="flex justify-center m-2">
       <ul className="flex flex-wrap text-base font-semibold text-center text-gray-500 dark:text-gray-400">
         <li className="me-2">
           <Link

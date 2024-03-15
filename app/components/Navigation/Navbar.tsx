@@ -6,10 +6,10 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 
 function Navbar() {
-    const { data: session, status } = useSession();
+  const { data: session, status } = useSession();
 
   return (
-    <nav className="bg-white border-gray-200 dark:bg-gray-900 mb-5">
+    <nav className="bg-white border-gray-200 dark:bg-gray-900 mb-5 sticky top-0 z-10">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link
           href="/"
@@ -82,14 +82,14 @@ function Navbar() {
                       <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />{" "}
                     </svg>
                   </button>
-                  <ul className="dropdown-menu absolute hidden text-gray-700 pt-1 w-[10rem]">
-                    <li className="">
-                      <span className="rounded-t text-sm bg-gray-800 py-2 px-4 block whitespace-no-wrap text-fuchsia-300">
+                  <ul className="dropdown-menu absolute hidden text-gray-700 pt-1 w-[10rem] z-50">
+                    <li className="z-50">
+                      <span className="rounded-t text-sm bg-gray-800 py-2 px-4 block whitespace-no-wrap text-fuchsia-300 z-50">
                         Signed in as{" "}
                         {status === "authenticated" && session.user?.name}
                       </span>
                     </li>
-                    <li className="">
+                    <li className="z-100">
                       <Link
                         href="/api/auth/signout"
                         className="block py-2 px-4 hover:bg-gray-600 hover:text-fuchsia-300 text-white bg-gray-800 rounded-b md:text-fuchsia-700 dark:text-white md:dark:text-fuchsia-500"

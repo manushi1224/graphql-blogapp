@@ -20,6 +20,7 @@ const individualPost = gql`
           createdAt
           title
           excerpt
+          id
           category {
             category
           }
@@ -33,6 +34,13 @@ const individualPost = gql`
           content {
             html
           }
+          likes {
+            author {
+              id
+              name
+            }
+          }
+          likeCount
         }
       }
     }

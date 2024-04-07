@@ -1,3 +1,4 @@
+import { createCommentByAuthorAndPostId } from "@/app/graphql/mutation";
 import client from "@/app/lib/client";
 import {
   publishAuthor,
@@ -14,25 +15,6 @@ export async function POST(req: NextRequest) {
   const { user } = await GetUserByEmail(data.get("email") as string);
   if (user) {
     console.log(user.id);
-    const mutation = gql`
-      mutation MyMutation($comment: String!, $id: ID!, $slug: String!) {
-        createComment(
-          data: {
-            comment: $comment
-            authors: { connect: { id: $id } }
-            post: { connect: { slug: $slug } }
-          }
-        ) {
-          id
-          post {
-            id
-            author {
-              id
-            }
-          }
-        }
-      }
-    `;
 
     const comments = {
       comment: data.get("comment"),
@@ -41,7 +23,10 @@ export async function POST(req: NextRequest) {
     };
 
     try {
-      const response: any = await client.request(mutation, comments);
+      const response: any = await client.request(
+        createCommentByAuthorAndPostId,
+        comments
+      );
       await publishComment(response.createComment.id);
       await publishAuthor(user.id);
       await publishPost(response.createComment.post.id);

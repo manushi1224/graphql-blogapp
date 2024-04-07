@@ -1,5 +1,5 @@
-import { gql } from "graphql-request";
 import client from "./client";
+import { deleteAssetById } from "../graphql/mutation";
 
 const graphqlAssetAPI = process.env.NEXT_PUBLIC_HYGRAPH_ASSET_API;
 const customGraphToken = process.env.NEXT_PUBLIC_HYGRAPH_TOKEN;
@@ -27,14 +27,6 @@ export async function uploadAsset(form: File) {
 }
 
 export async function deleteAsset(imageId: string) {
-  const mutation = gql`
-    mutation MyMutation($id: ID!) {
-      deleteAsset(where: { id: $id }) {
-        id
-      }
-    }
-  `;
-
-  const response = await client.request(mutation, { id: imageId });
+  const response = await client.request(deleteAssetById, { id: imageId });
   console.log(response);
 }

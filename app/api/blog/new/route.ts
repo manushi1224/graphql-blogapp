@@ -4,6 +4,7 @@ import { NextResponse, NextRequest } from "next/server";
 import { htmlToSlateAST } from "@graphcms/html-to-slate-ast";
 import { uploadAsset } from "@/app/lib/asssetController";
 import { publishAsset, publishPost } from "@/app/lib/publishControllers";
+import { createNewPost } from "@/app/graphql/mutation";
 
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 const customGraphToken = process.env.NEXT_PUBLIC_HYGRAPH_TOKEN;
@@ -44,36 +45,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   await publishAsset(image_id);
 
-  const mutation = gql`
-    mutation createPost(
-      $title: String!
-      $category: ID!
-      $content: RichTextAST!
-      $slug: String!
-      $excerpt: String!
-      $featuredPost: Boolean!
-      $author: ID!
-      $image_id: ID!
-    ) {
-      createPost(
-        data: {
-          title: $title
-          category: { connect: { id: $category } }
-          content: $content
-          slug: $slug
-          excerpt: $excerpt
-          featuredPost: $featuredPost
-          author: { connect: { id: $author } }
-          coverImage: { connect: { id: $image_id } }
-        }
-      ) {
-        id
-      }
-    }
-  `;
-
   try {
-    const blogCreated: any = await client.request(mutation, blogData);
+    const blogCreated: any = await client.request(createNewPost, blogData);
     if (blogCreated.createPost.id) {
       await publishPost(blogCreated.createPost.id);
     }

@@ -30,11 +30,13 @@ export default async function Page({ params }: any) {
   const data = await getBlogBySlug(params.slug);
 
   return (
-    <div className="py-10 grid grid-cols-12 max-w-screen-xl flex-wrap items-center justify-between mx-auto">
-      <div className="col-span-8">
+    <div className="py-10 grid grid-cols-12 max-w-screen-xl flex-wrap items-center justify-between mx-auto max-xl:px-8">
+      <div className="col-span-8 max-xl:col-span-12">
         <div className="flex flex-wrap items-center justify-between">
           <div className="p-2 mt-10">
-            <h2 className="text-4xl font-bold w-[80%]">{data.title}</h2>
+            <h2 className="text-4xl font-bold w-[80%] max-xl:w-[100%]">
+              {data.title}
+            </h2>
             <div className="flex pt-5">
               <h4 className="text-lg font-semibold text-fuchsia-400 pe-3">
                 {data.category.category}
@@ -48,7 +50,9 @@ export default async function Page({ params }: any) {
                 {data.author.name}
               </h4>
             </div>
-            <h4 className="pt-5 text-lg w-[70%]">{data.excerpt}</h4>
+            <h4 className="pt-5 text-lg w-[70%] max-xl:w-[100%] text-justify">
+              {data.excerpt}
+            </h4>
           </div>
           <div className="mt-16">
             <Image
@@ -61,7 +65,7 @@ export default async function Page({ params }: any) {
           </div>
 
           <div
-            className="my-5 rich-text w-[80%] ps-0"
+            className="my-5 rich-text w-[80%] ps-0 max-xl:w-[100%] max-xl:text-justify"
             dangerouslySetInnerHTML={{ __html: `${data.content.html}` }}
           ></div>
         </div>

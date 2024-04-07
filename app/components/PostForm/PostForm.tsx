@@ -100,9 +100,9 @@ export default function PostForm({
             {editMode ? "Edit The Post" : "Create A New Blog"}
           </h2>
         </div>
-        <div className="mt-14 flex justify-center">
+        <div className="mt-14 flex justify-center p-4">
           <form onSubmit={(event) => onSignup(event)} method="POST">
-            <div className="flex justify-between gap-4">
+            <div className="flex justify-between gap-4 max-lg:flex-col max-lg:justify-center content-center">
               <div className="mt-3">
                 <label
                   htmlFor="title"
@@ -121,7 +121,7 @@ export default function PostForm({
                     onChange={(e) =>
                       setFormData({ ...formData, title: e.target.value })
                     }
-                    className="block p-2 w-96 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                    className="block p-2 w-64 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                   ></input>
                 </div>
               </div>
@@ -140,7 +140,7 @@ export default function PostForm({
                   onChange={(e) => {
                     setFormData({ ...formData, category: e.target.value });
                   }}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-96 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-64 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option>Choose a Category</option>
                   <option value="Productivity">Productivity</option>
@@ -167,7 +167,7 @@ export default function PostForm({
                   onChange={(e) =>
                     setFormData({ ...formData, excerpt: e.target.value })
                   }
-                  className="block p-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                  className="block p-2 w-full max-lg:w-64 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                 ></input>
               </div>
             </div>

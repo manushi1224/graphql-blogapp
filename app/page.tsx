@@ -15,8 +15,8 @@ export default function Home({
   const query = searchParams?.query || "";
   return (
     <main>
-      <div className="w-full px-16 pb-10 grid grid-cols-12">
-        <div className="col-span-8">
+      <div className="w-full px-16 pb-10 max-sm:px-4 grid grid-cols-12">
+        <div className="col-span-8 max-sm:col-span-12 max-xl:col-span-12">
           <div className="sticky top-[4rem] z-10 bg-black p-2 gap-0">
             <FilterTabs />
             <div className="flex justify-center w-full">

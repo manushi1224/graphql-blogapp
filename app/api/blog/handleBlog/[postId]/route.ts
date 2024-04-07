@@ -1,34 +1,7 @@
+import { deletePostById } from "@/app/graphql/mutation";
+import { getPostDataById } from "@/app/graphql/query";
 import client from "@/app/lib/client";
-import { gql } from "graphql-request";
 import { NextRequest, NextResponse } from "next/server";
-
-const getPostDataById = gql`
-  query MyQuery($id: ID!) {
-    postsConnection(where: { id: $id }) {
-      edges {
-        node {
-          category {
-            category
-            id
-          }
-          title
-          coverImage {
-            url
-            id
-          }
-          excerpt
-          id
-          content {
-            text
-            html
-            raw
-          }
-          featuredPost
-        }
-      }
-    }
-  }
-`;
 
 export async function GET(
   req: NextRequest,
@@ -44,17 +17,10 @@ export async function DELETE(
   req: NextRequest,
   { params }: { params: { postId: string } }
 ) {
-  const mutation = gql`
-    mutation MyMutation($id: ID!) {
-      deletePost(where: { id: $id }) {
-        id
-      }
-    }
-  `;
-
   try {
-    const response = await client.request(mutation, { id: params.postId });
-    console.log(response);
+    const response = await client.request(deletePostById, {
+      id: params.postId,
+    });
 
     return NextResponse.json({
       message: "Post deleted successfully!",

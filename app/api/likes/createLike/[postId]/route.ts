@@ -1,3 +1,7 @@
+import {
+  createLikeByAuthorAndPostId,
+  updateAndPublishLike,
+} from "@/app/graphql/mutation";
 import client from "@/app/lib/client";
 import {
   publishAuthor,
@@ -5,35 +9,7 @@ import {
   publishPost,
 } from "@/app/lib/publishControllers";
 import { GetUserByEmail, getLikesByPostId } from "@/services";
-import { gql } from "graphql-request";
 import { NextRequest, NextResponse } from "next/server";
-
-const createMutation = gql`
-  mutation MyMutation($id: ID!, $postId: ID!) {
-    createLike(
-      data: {
-        author: { connect: { id: $id } }
-        posts: { connect: { id: $postId } }
-      }
-    ) {
-      id
-    }
-  }
-`;
-
-const editMutation = gql`
-  mutation MyMutation($likeId: ID!, $postId: ID!) {
-    updateLike(
-      data: { posts: { connect: { where: { id: $postId } } } }
-      where: { id: $likeId }
-    ) {
-      id
-    }
-    publishLike(where: { id: $likeId }) {
-      id
-    }
-  }
-`;
 
 export async function POST(
   req: NextRequest,
@@ -47,7 +23,7 @@ export async function POST(
 
   if (posts.length === 0) {
     //createLike logic here
-    const response: any = await client.request(createMutation, {
+    const response: any = await client.request(createLikeByAuthorAndPostId, {
       id: user.id,
       postId: postId,
     });
@@ -72,7 +48,7 @@ export async function POST(
   }
 
   //update like where you connect the post mutation only
-  const response: any = await client.request(editMutation, {
+  const response: any = await client.request(updateAndPublishLike, {
     likeId: posts[0].node.id,
     postId: postId,
   });

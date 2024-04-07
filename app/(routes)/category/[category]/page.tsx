@@ -22,12 +22,14 @@ async function Page({ params }: { params: { category: string } }) {
 
   return (
     <div>
-      <div className="px-16 pb-10 grid grid-cols-12">
-        <div className="col-span-8">
+      <div className="px-16 pb-10 max-sm:px-4 grid grid-cols-12">
+        <div className="col-span-8 max-sm:col-span-12">
           <FilterTabs category={params.category} />
-          <Suspense key={filteredPosts} fallback={<Skeleton />}>
-            <BlogCard blogs={filteredPosts} />
-          </Suspense>
+          <div className="mt-10">
+            <Suspense key={filteredPosts} fallback={<Skeleton />}>
+              <BlogCard blogs={filteredPosts} />
+            </Suspense>
+          </div>
         </div>
         <div className="col-span-4 fixed z-20 top-[3.8125rem] bottom-0 right-[max(0px,calc(50%-45rem))] w-[25rem] py-10 overflow-y-auto hidden xl:block">
           <h1 className="text-xl font-extrabold pb-4">Featured Posts</h1>

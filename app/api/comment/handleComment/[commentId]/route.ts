@@ -1,21 +1,18 @@
+import {
+  deleteCommentById,
+  updateAndPublishComment,
+} from "@/app/graphql/mutation";
 import client from "@/app/lib/client";
-import { gql } from "graphql-request";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function DELETE(
   req: NextRequest,
   { params }: { params: { commentId: string } }
 ) {
-  const mutation = gql`
-    mutation MyMutation($id: ID!) {
-      deleteComment(where: { id: $id }) {
-        id
-      }
-    }
-  `;
-
   try {
-    const response = await client.request(mutation, { id: params.commentId });
+    const response = await client.request(deleteCommentById, {
+      id: params.commentId,
+    });
     console.log(response);
 
     return NextResponse.json({
@@ -33,17 +30,7 @@ export async function PATCH(
   { params }: { params: { commentId: string } }
 ) {
   const { comment } = await req.json();
-  const mutation = gql`
-    mutation MyMutation($id: ID!, $comment: String!) {
-      updateComment(where: { id: $id }, data: { comment: $comment }) {
-        id
-      }
-      publishComment(where: { id: $id }) {
-        id
-      }
-    }
-  `;
-  const response: any = await client.request(mutation, {
+  const response: any = await client.request(updateAndPublishComment, {
     id: params.commentId,
     comment: comment,
   });

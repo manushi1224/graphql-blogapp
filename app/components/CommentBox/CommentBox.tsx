@@ -8,12 +8,16 @@ import toast, { Toaster } from "react-hot-toast";
 
 export const dynamic = "force-dynamic";
 
-function CommentBox({slug, postId, likes }: any) {
+function CommentBox({ slug, postId, likes }: any) {
   const [comment, setComment] = useState<string>("");
   const { data: session } = useSession();
   const router = useRouter();
 
   const handleLike = async (id: any) => {
+    if (session?.user?.email === undefined) {
+      toast.error("Please login to like this post!");
+      return;
+    }
     try {
       console.log(session?.user?.email, "email");
       const response = await axios.post(
@@ -21,7 +25,7 @@ function CommentBox({slug, postId, likes }: any) {
         { email: session?.user?.email }
       );
       const data = response.data;
-      console.log(data, "data")
+      console.log(data, "data");
       if (data.message === "success") {
         toast.success("Thanks for your feedback!");
         router.refresh();
@@ -33,6 +37,10 @@ function CommentBox({slug, postId, likes }: any) {
 
   const handleComment = async (e: any) => {
     e.preventDefault();
+    if (session?.user?.email === undefined) {
+      toast.error("Please login to comment on this post!");
+      return;
+    }
     if (comment === "") {
       toast.error("Please enter a comment");
       return;
@@ -58,7 +66,7 @@ function CommentBox({slug, postId, likes }: any) {
   };
 
   return (
-    <div className="w-[70%]">
+    <div className="w-[70%] max-xl:w-[100%]">
       <Toaster />
       <div className="bg-white border border-slate-200 grid grid-cols-8 gap-2 rounded-xl p-5 text-sm h-96">
         <h1 className="text-slate-900 text-2xl font-extrabold col-span-8">

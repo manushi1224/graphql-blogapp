@@ -1,24 +1,9 @@
-import { GraphQLClient, gql } from "graphql-request";
 import bcrypt from "bcrypt";
 import { NextRequest, NextResponse } from "next/server";
 import { GetUserByEmail } from "@/services";
 import { publishAuthor } from "@/app/lib/publishControllers";
-
-const { NEXT_PUBLIC_GRAPHCMS_ENDPOINT, NEXT_PUBLIC_HYGRAPH_TOKEN } =
-  process.env;
-const client = new GraphQLClient(NEXT_PUBLIC_GRAPHCMS_ENDPOINT as string, {
-  headers: {
-    Authorization: `Bearer ${NEXT_PUBLIC_HYGRAPH_TOKEN}`,
-  },
-});
-
-const CreateNextUserMutation = gql`
-  mutation createUser($userData: AuthorCreateInput!) {
-    createAuthor(data: $userData) {
-      id
-    }
-  }
-`;
+import { CreateNextUserMutation } from "@/app/graphql/mutation";
+import client from "@/app/lib/client";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   const { email, password, bio, name }: any = await req.json();

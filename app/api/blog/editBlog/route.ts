@@ -1,9 +1,9 @@
+import { updatePostById } from "@/app/graphql/mutation";
 import { deleteAsset, uploadAsset } from "@/app/lib/asssetController";
 import client from "@/app/lib/client";
 import { publishAsset, publishPost } from "@/app/lib/publishControllers";
 import { getCategoryByName } from "@/services";
 import htmlToSlateAST from "@graphcms/html-to-slate-ast";
-import { gql } from "graphql-request";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PATCH(req: NextRequest) {
@@ -37,36 +37,8 @@ export async function PATCH(req: NextRequest) {
     postId: data.get("postId"),
   };
 
-  const mutation = gql`
-    mutation MyMutation(
-      $content: RichTextAST!
-      $excerpt: String!
-      $featuredPost: Boolean!
-      $title: String!
-      $image_id: ID!
-      $postId: ID!
-      $category: ID!
-      $slug: String!
-    ) {
-      updatePost(
-        data: {
-          content: $content
-          excerpt: $excerpt
-          featuredPost: $featuredPost
-          title: $title
-          slug: $slug
-          coverImage: { connect: { id: $image_id } }
-          category: { connect: { id: $category } }
-        }
-        where: { id: $postId }
-      ) {
-        id
-      }
-    }
-  `;
-
   try {
-    const result: any = await client.request(mutation, blogData);
+    const result: any = await client.request(updatePostById, blogData);
     console.log(result.updatePost.id);
     await publishPost(result.updatePost.id);
     return NextResponse.json({

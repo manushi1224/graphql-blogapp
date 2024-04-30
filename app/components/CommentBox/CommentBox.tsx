@@ -32,7 +32,9 @@ function CommentBox({ slug, postId, likes }: any) {
       } else {
         toast.error("You have already liked this post!");
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleComment = async (e: any) => {

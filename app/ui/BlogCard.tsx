@@ -5,6 +5,7 @@ function BlogCard({ blogs }: any) {
   if (blogs.length === 0) {
     return <div>No blogs to be shown</div>;
   }
+  console.log(blogs);
   return (
     <div className="w-full grid grid-cols-3 max-lg:grid-cols-2 gap-6 max-sm:grid-cols-1">
       {blogs.map((blog: any, index: number) => {
@@ -18,7 +19,7 @@ function BlogCard({ blogs }: any) {
               <div className="p-3">
                 <Image
                   className="rounded-lg object-cover w-full h-52"
-                  src={blog.node.coverImage.url}
+                  src={blog.node.coverImage?.url}
                   height={200}
                   width={400}
                   alt="blog-image"

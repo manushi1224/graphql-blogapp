@@ -13,7 +13,7 @@ function FeaturedPostCard({ posts }: any) {
           <div className="h-10 lg:h-auto lg:w-48 flex-none bg-cover rounded-l max-lg:rounded-t text-center overflow-hidden">
             <Image
               alt="image"
-              src={post.node.coverImage.url}
+              src={post.node.coverImage?.url}
               height={300}
               className="w-full h-full object-cover object-center"
               width={300}

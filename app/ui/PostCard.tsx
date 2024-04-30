@@ -34,7 +34,7 @@ function PostCard({ posts }: any) {
                     closePopup={closePopup}
                     id={post.node.id}
                     deletePostHandler={deletePostHandler}
-                    imageId={post.node.coverImage.id}
+                    imageId={post.node.coverImage?.id}
                     catId={post.node.category.id}
                     authId={post.node.author.id}
                   />
@@ -64,7 +64,7 @@ function PostCard({ posts }: any) {
                     </button>
                   </div>
                   <Image
-                    src={post.node.coverImage.url}
+                    src={post.node.coverImage?.url}
                     alt=""
                     className="mx-0 sm:mx-6 shadow-md rounded-lg bg-slate-50 w-[17rem]"
                     width={1216}

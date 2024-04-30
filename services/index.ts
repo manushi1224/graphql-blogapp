@@ -25,6 +25,7 @@ const GetUserByEmail = async (email: string) => {
 };
 
 const getCategoryByName = async (name: string) => {
+  console.log(name);
   const getUserResponse: any = await client.request(getCategoryDataByName, {
     name,
   });

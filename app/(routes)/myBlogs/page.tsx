@@ -31,7 +31,7 @@ async function getIndividualPost() {
 
 export default async function Page() {
   const posts = await getIndividualPost();
-  if (!posts) {
+  if (posts && !posts.length) {
     return (
       <div className="text-center">
         <h3>There is no post to be showed!</h3>

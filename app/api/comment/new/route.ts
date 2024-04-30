@@ -30,7 +30,6 @@ export async function POST(req: NextRequest) {
       await publishComment(response.createComment.id);
       await publishAuthor(user.id);
       await publishPost(response.createComment.post.id);
-      console.log(response);
       return NextResponse.json({ message: "success" });
     } catch (error) {
       console.log(error);

@@ -13,7 +13,6 @@ export async function DELETE(
     const response = await client.request(deleteCommentById, {
       id: params.commentId,
     });
-    console.log(response);
 
     return NextResponse.json({
       message: "Post deleted successfully!",

@@ -13,7 +13,7 @@ async function getPostData(postId: string) {
 async function Page({ params }: any) {
   const id = params.postId;
   const { post } = await getPostData(id);
-  console.log(post);
+
   return (
     <div>
       <PostForm editMode={true} postId={id} postData={post[0]?.node} />

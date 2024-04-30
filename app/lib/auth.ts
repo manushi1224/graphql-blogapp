@@ -1,8 +1,7 @@
+import { GetUserByEmail } from "@/services";
+import { compare } from "bcrypt";
 import { NextAuthOptions, Session } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { compare, hash } from "bcrypt";
-import { GraphQLClient } from "graphql-request";
-import { GetUserByEmail } from "@/services";
 
 export const authOptions: NextAuthOptions = {
   providers: [

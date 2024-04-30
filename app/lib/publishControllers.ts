@@ -10,7 +10,6 @@ async function publishPost(id: string) {
     }
   `;
   const response = await client.request(mutation, { id });
-  console.log(response);
 }
 
 async function publishAsset(id: string) {
@@ -22,7 +21,6 @@ async function publishAsset(id: string) {
     }
   `;
   const response = await client.request(mutation, { id });
-  console.log(response);
 }
 
 async function publishCategory(id: string) {
@@ -34,7 +32,6 @@ async function publishCategory(id: string) {
     }
   `;
   const response = await client.request(mutation, { id });
-  console.log(response);
 }
 
 async function publishAuthor(id: string) {
@@ -46,7 +43,6 @@ async function publishAuthor(id: string) {
     }
   `;
   const response = await client.request(mutation, { id });
-  console.log(response);
 }
 
 async function publishComment(id: string) {
@@ -58,7 +54,6 @@ async function publishComment(id: string) {
     }
   `;
   const response = await client.request(mutation, { id });
-  console.log(response);
 }
 
 async function publishLike(id: string) {
@@ -70,7 +65,6 @@ async function publishLike(id: string) {
     }
   `;
   const response = await client.request(mutation, { id });
-  console.log(response);
 }
 
 export {

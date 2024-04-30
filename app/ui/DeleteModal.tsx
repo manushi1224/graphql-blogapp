@@ -37,7 +37,6 @@ function DeleteModal({
   };
 
   const deleteComment = async () => {
-    console.log("comment id", id);
     const response = await axios.delete(
       `${process.env.NEXT_PUBLIC_API}/api/comment/handleComment/${id}`
     );

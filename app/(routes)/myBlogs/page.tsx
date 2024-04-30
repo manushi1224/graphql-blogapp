@@ -35,7 +35,9 @@ export default async function Page() {
     return (
       <div className="text-center">
         <h3>There is no post to be showed!</h3>
-        <p className="text-blue-400"><Link href={"/createBlog"}>Try Creating One?</Link></p>
+        <p className="text-blue-400">
+          <Link href={"/createBlog"}>Try Creating One?</Link>
+        </p>
       </div>
     );
   }

@@ -8,7 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 export const dynamic = "force-dynamic";
 
-function CommentBox({ slug, postId, likes }: any) {
+function CommentBox({ slug, postId, likes, ifLikeAlreadyExists }: any) {
   const [comment, setComment] = useState<string>("");
   const { data: session } = useSession();
   const router = useRouter();
@@ -19,13 +19,11 @@ function CommentBox({ slug, postId, likes }: any) {
       return;
     }
     try {
-      console.log(session?.user?.email, "email");
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API}/api/likes/createLike/${id}`,
         { email: session?.user?.email }
       );
       const data = response.data;
-      console.log(data, "data");
       if (data.message === "success") {
         toast.success("Thanks for your feedback!");
         router.refresh();
@@ -114,10 +112,15 @@ function CommentBox({ slug, postId, likes }: any) {
           <span className="col-span-2"></span>
           <button
             type="button"
+            disabled={ifLikeAlreadyExists}
             onClick={() => {
               handleLike(postId);
             }}
-            className="fill-slate-900 col-span-1 flex justify-center items-center gap-2 rounded-lg p-2 duration-300 bg-green-200 hover:border-slate-800 focus:fill-green-900 focus:bg-green-400 border-2 border-slate-200"
+            className={`${
+              ifLikeAlreadyExists
+                ? "fill-slate-900 bg-green-400"
+                : "fill-slate-900 bg-green-200"
+            } col-span-1 flex justify-center items-center gap-2 rounded-lg p-2 duration-300  hover:border-slate-800 focus:fill-green-900 focus:bg-green-400 border-2 border-slate-200`}
           >
             <span className="text-base font-semibold text-black">{likes}</span>
             <svg

@@ -1,12 +1,13 @@
 "use client";
-import React from "react";
 import img from "@/public/blogbreeze.png";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 function Navbar() {
   const { data: session, status } = useSession();
+  const router = useRouter();
 
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900 mb-5 sticky top-0 z-10">
@@ -90,13 +91,16 @@ function Navbar() {
                       </span>
                     </li>
                     <li className="z-100">
-                      <Link
-                        href="/api/auth/signout"
-                        className="block py-2 px-4 hover:bg-gray-600 hover:text-fuchsia-300 text-white bg-gray-800 rounded-b md:text-fuchsia-700 dark:text-white md:dark:text-fuchsia-500"
+                      <span
+                        onClick={() => {
+                          signOut({ redirect: false });
+                          router.replace("/login");
+                        }}
+                        className="block py-2 px-4 hover:bg-gray-600 hover:text-fuchsia-300 hover:cursor-pointer text-white bg-gray-800 rounded-b md:text-fuchsia-700 dark:text-white md:dark:text-fuchsia-500"
                         aria-current="page"
                       >
                         Sign Out
-                      </Link>
+                      </span>
                     </li>
                   </ul>
                 </div>

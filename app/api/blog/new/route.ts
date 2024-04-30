@@ -29,7 +29,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
     getCategoryByName(data.get("category") as string),
     htmlToSlateAST(data.get("description") as string),
   ]);
-  console.log("Image ID", image_id);
 
   // console.log(JSON.stringify(ast, null, 2));
 
@@ -52,7 +51,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
         publishAsset(image_id),
       ]);
     }
-    console.log(blogCreated);
     return NextResponse.json({ message: "Blog Created", status: 201 });
   } catch (error: any) {
     console.log(error);

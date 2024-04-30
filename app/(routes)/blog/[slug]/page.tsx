@@ -1,8 +1,9 @@
 import CommentBox from "@/app/components/CommentBox/CommentBox";
 import CommentSection from "@/app/components/CommentSection/CommentSection";
 import FeaturedPosts from "@/app/components/FeautredPosts/FeaturedPosts";
-import FeaturedPostCard from "@/app/ui/FeaturedPostCard";
-import { getPosts } from "@/services";
+import { getPosts, GetUserByEmail } from "@/services";
+import { getServerSession } from "next-auth";
+import { getSession } from "next-auth/react";
 import Image from "next/image";
 
 export const dynamic = "force-dynamic";
@@ -26,8 +27,20 @@ async function getBlogBySlug(slug: any) {
   return data;
 }
 
+async function checkIfLikeExists(likes: any) {
+  const session = await getServerSession();
+  if (!session) {
+    return false;
+  }
+  const email = session?.user?.email;
+  const { user }: any = await GetUserByEmail(email as string);
+  const ifLiked = likes.filter((like: any) => like.author.id === user?.id);
+  return ifLiked.length > 0;
+}
+
 export default async function Page({ params }: any) {
   const data = await getBlogBySlug(params.slug);
+  const ifLikeAlreadyExists = await checkIfLikeExists(data.likes);
 
   return (
     <div className="py-10 grid grid-cols-12 max-w-screen-xl flex-wrap items-center justify-between mx-auto max-xl:px-8">
@@ -73,6 +86,7 @@ export default async function Page({ params }: any) {
           <CommentBox
             slug={params.slug}
             postId={data.id}
+            ifLikeAlreadyExists={ifLikeAlreadyExists}
             likes={data.likes.length}
           />
           <CommentSection slug={params.slug} />

@@ -39,7 +39,7 @@ export async function PATCH(req: NextRequest) {
 
   try {
     const result: any = await client.request(updatePostById, blogData);
-    console.log(result.updatePost.id);
+
     await publishPost(result.updatePost.id);
     return NextResponse.json({
       message: "Blog updated successfully",

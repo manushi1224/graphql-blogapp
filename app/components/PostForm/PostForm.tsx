@@ -38,7 +38,6 @@ export default function PostForm({
 
   const onSignup = async (event: any) => {
     event.preventDefault();
-    console.log(formData);
     try {
       const formValue = new FormData();
       formValue.append("title", formData.title);
@@ -196,7 +195,6 @@ export default function PostForm({
                   onChange={({ target }) => {
                     if (target.files) {
                       const file = target.files[0];
-                      console.log(file);
                       setFormData({
                         ...formData,
                         image: URL.createObjectURL(file),

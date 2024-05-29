@@ -10,7 +10,8 @@ export async function GET(
   if (posts) {
     filteredPosts = posts.filter(
       (item: any) =>
-        item.node.category.category.toLowerCase() === params.category
+        item.node.category.category.toLowerCase() ===
+        params.category.toLowerCase()
     );
   }
   return NextResponse.json({ filteredPosts: filteredPosts });

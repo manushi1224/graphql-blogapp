@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@graphcms/html-to-slate-ast": "^0.14.1",
+    "@million/lint": "^1.0.0-rc.13",
     "@tinymce/tinymce-react": "^4.3.2",
     "axios": "^1.6.7",
     "bcrypt": "^5.1.1",
@@ -23,6 +24,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1",
+    "react-intersection-observer": "^9.10.2",
     "slate": "^0.66.1",
     "slate-hyperscript": "^0.67.0",
     "tinymce": "^6.8.3",

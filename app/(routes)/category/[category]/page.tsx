@@ -5,16 +5,20 @@ import FeaturedPosts from "@/app/components/FeautredPosts/FeaturedPosts";
 import Skeleton from "@/app/ui/Skeleton";
 
 async function getFileterdPosts(category: string) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/api/blog/category/${category}`,
-    { cache: "no-cache" }
-  );
-  if (!res.ok) {
-    console.error(`An error occurred: ${res.statusText}`);
-    return;
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API}/api/blog/category/${category}`,
+      { cache: "no-cache" }
+    );
+    if (res.status !== 200) {
+      console.error(`An error occurred: ${res.statusText}`);
+      return;
+    }
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.log(error);
   }
-  const data = await res.json();
-  return data;
 }
 
 async function Page({ params }: { params: { category: string } }) {

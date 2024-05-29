@@ -3,7 +3,6 @@ import CommentSection from "@/app/components/CommentSection/CommentSection";
 import FeaturedPosts from "@/app/components/FeautredPosts/FeaturedPosts";
 import { getPosts, GetUserByEmail } from "@/services";
 import { getServerSession } from "next-auth";
-import { getSession } from "next-auth/react";
 import Image from "next/image";
 
 export const dynamic = "force-dynamic";

@@ -1,3 +1,5 @@
+"use server";
+
 export async function fetchFilteredBlogs(query: any) {
   let result = await fetch(
     `${process.env.NEXT_PUBLIC_API}/api/blog/searchBlog/${query}`

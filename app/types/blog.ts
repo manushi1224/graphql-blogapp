@@ -1,26 +1,26 @@
 type Blog = {
-  node: {
+  id: string;
+  createdAt: string;
+  category: {
     id: string;
-    createdAt: string;
-    category: {
-      category: string;
-    };
-    author: Author;
-    slug: string;
-    title: string;
-    excerpt: string;
-    featuredPost: boolean;
-    coverImage: {
-      url: string;
-    };
-    likes: Author[];
-    content: string;
+    category: string;
+  };
+  author: Author;
+  slug: string;
+  title: string;
+  excerpt: string;
+  featuredPost: boolean;
+  coverImage: {
+    id: string;
+    url: string;
+  };
+  likes: Likes[];
+  content: {
+    html: string;
+    text: string;
   };
 };
 
-type Author = {
-  id: string;
-  name: string;
-  email?: string;
-  bio?: string;
-};
+type BlogList = {
+  node: Blog;
+}[];

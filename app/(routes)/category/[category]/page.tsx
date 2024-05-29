@@ -22,7 +22,9 @@ async function getFileterdPosts(category: string) {
 }
 
 async function Page({ params }: { params: { category: string } }) {
-  const { filteredPosts } = await getFileterdPosts(params.category);
+  const { filteredPosts }: { filteredPosts: BlogList } = await getFileterdPosts(
+    params.category
+  );
 
   return (
     <div>
@@ -30,7 +32,7 @@ async function Page({ params }: { params: { category: string } }) {
         <div className="col-span-8 max-sm:col-span-12 max-xl:col-span-12">
           <FilterTabs category={params.category} />
           <div className="mt-10">
-            <Suspense key={filteredPosts} fallback={<Skeleton />}>
+            <Suspense key={filteredPosts.toString()} fallback={<Skeleton />}>
               <BlogCard blogs={filteredPosts} />
             </Suspense>
           </div>

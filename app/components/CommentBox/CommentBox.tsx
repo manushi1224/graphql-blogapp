@@ -3,17 +3,27 @@
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 export const dynamic = "force-dynamic";
 
-function CommentBox({ slug, postId, likes, ifLikeAlreadyExists }: any) {
+function CommentBox({
+  slug,
+  postId,
+  likes,
+  ifLikeAlreadyExists,
+}: {
+  slug: string;
+  postId: string;
+  likes: number;
+  ifLikeAlreadyExists: boolean;
+}) {
   const [comment, setComment] = useState<string>("");
   const { data: session } = useSession();
   const router = useRouter();
 
-  const handleLike = async (id: any) => {
+  const handleLike = async (id: string) => {
     if (session?.user?.email === undefined) {
       toast.error("Please login to like this post!");
       return;
@@ -35,7 +45,7 @@ function CommentBox({ slug, postId, likes, ifLikeAlreadyExists }: any) {
     }
   };
 
-  const handleComment = async (e: any) => {
+  const handleComment = async (e: FormEvent) => {
     e.preventDefault();
     if (session?.user?.email === undefined) {
       toast.error("Please login to comment on this post!");
@@ -46,7 +56,7 @@ function CommentBox({ slug, postId, likes, ifLikeAlreadyExists }: any) {
       return;
     }
 
-    const formData = new FormData();
+    const formData: FormData = new FormData();
     formData.append("comment", comment);
     formData.append("slug", slug);
     formData.append("email", session?.user?.email as string);
@@ -118,7 +128,7 @@ function CommentBox({ slug, postId, likes, ifLikeAlreadyExists }: any) {
             }}
             className={`${
               ifLikeAlreadyExists
-                ? "fill-slate-900 bg-green-400"
+                ? "fill-slate-900 bg-green-500"
                 : "fill-slate-900 bg-green-200"
             } col-span-1 flex justify-center items-center gap-2 rounded-lg p-2 duration-300  hover:border-slate-800 focus:fill-green-900 focus:bg-green-400 border-2 border-slate-200`}
           >

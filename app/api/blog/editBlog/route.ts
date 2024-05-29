@@ -8,10 +8,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function PATCH(req: NextRequest) {
   const data = await req.formData();
-  const fileUpload = data.get("file");
+  const fileUpload: FormDataEntryValue = data.get("file") as FormDataEntryValue;
   let image_id: any;
   if (fileUpload !== undefined) {
-    const form: any = new FormData();
+    const form: FormData = new FormData();
     form.append("fileUpload", fileUpload);
     image_id = await uploadAsset(form);
     if (image_id) {

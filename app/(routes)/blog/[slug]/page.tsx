@@ -10,10 +10,10 @@ export const dynamic = "force-dynamic";
 export async function generateStaticParams() {
   const blogData = await getPosts();
 
-  return blogData.map((item: any) => ({ slug: item.node.slug }));
+  return blogData.map((item: Blog) => ({ slug: item.slug }));
 }
 
-async function getBlogBySlug(slug: any) {
+async function getBlogBySlug(slug: string) {
   const result = await fetch(
     `${process.env.NEXT_PUBLIC_API}/api/blog/singleBlog/${slug}`,
     { cache: "no-cache" }
@@ -26,19 +26,19 @@ async function getBlogBySlug(slug: any) {
   return data;
 }
 
-async function checkIfLikeExists(likes: any) {
+async function checkIfLikeExists(likes: Likes[]) {
   const session = await getServerSession();
   if (!session) {
     return false;
   }
   const email = session?.user?.email;
-  const { user }: any = await GetUserByEmail(email as string);
-  const ifLiked = likes.filter((like: any) => like.author.id === user?.id);
+  const { user }: { user: Author } = await GetUserByEmail(email as string);
+  const ifLiked = likes.filter((like: Likes) => like.author.id === user?.id);
   return ifLiked.length > 0;
 }
 
-export default async function Page({ params }: any) {
-  const data = await getBlogBySlug(params.slug);
+export default async function Page({ params }: { params: { slug: string } }) {
+  const data: Blog = await getBlogBySlug(params.slug);
   const ifLikeAlreadyExists = await checkIfLikeExists(data.likes);
 
   return (
@@ -91,7 +91,7 @@ export default async function Page({ params }: any) {
           <CommentSection slug={params.slug} />
         </div>
       </div>
-      <div className="col-span-4 fixed top-[7rem] bottom-0 right-[max(0px,calc(50%-45rem))] w-[25rem] overflow-y-auto hidden xl:block">
+      <div className="col-span-4 fixed top-[7rem] bottom-0 right-[max(0px,calc(50%-45rem))] w-[25rem] px-2 overflow-y-auto hidden pb-20 xl:block featured-post">
         <h1 className="text-xl font-extrabold pb-4">Featured Posts</h1>
         <hr />
         <FeaturedPosts />

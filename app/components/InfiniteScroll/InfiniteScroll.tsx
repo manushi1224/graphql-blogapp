@@ -3,10 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const InfiniteScroll = ({ blogs }: { blogs: Blog[] }) => {
+const InfiniteScroll = ({ blogs }: { blogs: BlogList }) => {
   return (
     <div className="w-full grid grid-cols-3 max-lg:grid-cols-2 gap-6 max-sm:grid-cols-1">
-      {blogs.map((blog: Blog, index: number) => {
+      {blogs.map((blog: { node: Blog }, index: number) => {
         return (
           <Link
             href={`/blog/${blog.node.slug}`}

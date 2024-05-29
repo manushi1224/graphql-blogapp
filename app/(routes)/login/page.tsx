@@ -1,6 +1,6 @@
 "use client";
 import { redirect, useRouter } from "next/navigation";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 // import google from "@/public/g_icon.png";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
@@ -13,7 +13,7 @@ export default function Page() {
     password: "",
   });
 
-  const onSignup = async (event: any) => {
+  const onSignup = async (event: FormEvent) => {
     event.preventDefault();
     try {
       if (!user.email || !user.password) {

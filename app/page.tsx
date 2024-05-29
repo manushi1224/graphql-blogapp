@@ -23,10 +23,7 @@ export default function Home({
               <SearchInput placeholder={"Search by Title...."} />
             </div>
           </div>
-
-          {/* <h1 className="text-4xl text-center p-10 font-extrabold">
-            All Posts
-          </h1> */}
+          
           <Suspense key={query} fallback={<Skeleton />}>
             <Blogs query={query} />
           </Suspense>

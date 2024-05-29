@@ -4,7 +4,7 @@ import { deleteAssetById } from "../graphql/mutation";
 const graphqlAssetAPI = process.env.NEXT_PUBLIC_HYGRAPH_ASSET_API;
 const customGraphToken = process.env.NEXT_PUBLIC_HYGRAPH_TOKEN;
 
-export async function uploadAsset(form: File) {
+export async function uploadAsset(form: FormData) {
   let image_id;
   try {
     const response = await fetch(graphqlAssetAPI as string, {

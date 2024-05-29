@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import DeleteModal from "./DeleteModal";
 import toast, { Toaster } from "react-hot-toast";
 
-function PostCard({ posts }: any) {
+function PostCard({ posts }: { posts: BlogList }) {
   const [deletePost, setDeletePost] = useState(false);
 
   const closePopup = (status: boolean) => {
@@ -22,7 +22,7 @@ function PostCard({ posts }: any) {
     <div>
       <Toaster />
       {posts &&
-        posts.map((post: any, index: any) => {
+        posts.map((post: { node: Blog }, index: number) => {
           return (
             <div key={index}>
               <ul

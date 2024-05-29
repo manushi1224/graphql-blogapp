@@ -1,9 +1,16 @@
 "use client";
-import React, { useRef, useState } from "react";
-import Image from "next/image";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import {
+  FormEvent,
+  MutableRefObject,
+  Ref,
+  RefObject,
+  useRef,
+  useState,
+} from "react";
 import toast, { Toaster } from "react-hot-toast";
 import RichTextEditor from "../RichTextEditor/RichTextEditor";
 
@@ -14,10 +21,10 @@ export default function PostForm({
 }: {
   editMode: boolean;
   postId?: string;
-  postData?: any;
+  postData?: Blog;
 }) {
   const { data: session } = useSession();
-  const editorRef = useRef<any>(null);
+  const editorRef = useRef<MutableRefObject<null>>(null);
   const router = useRouter();
   const [formData, setFormData] = useState<any>({
     title: postData?.title || "",
@@ -36,7 +43,7 @@ export default function PostForm({
     setFormData({ ...formData, content: content });
   };
 
-  const onSignup = async (event: any) => {
+  const onSignup = async (event: FormEvent) => {
     event.preventDefault();
     try {
       const formValue = new FormData();

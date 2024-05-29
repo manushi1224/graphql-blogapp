@@ -15,7 +15,7 @@ export async function POST(
   req: NextRequest,
   { params }: { params: { postId: string } }
 ) {
-  const postId: any = params.postId;
+  const postId: string = params.postId;
   const { email } = await req.json();
   const { user } = await GetUserByEmail(email as string);
   const posts = await getLikesByPostId(user.id as string);

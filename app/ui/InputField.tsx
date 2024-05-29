@@ -1,6 +1,18 @@
 import React from "react";
 
-function InputField({ setUser, user, type, label, name }: any) {
+function InputField({
+  setUser,
+  user,
+  type,
+  label,
+  name,
+}: {
+  setUser: Function;
+  user: any;
+  type: string;
+  label: string;
+  name: string;
+}) {
   return (
     <div>
       <label

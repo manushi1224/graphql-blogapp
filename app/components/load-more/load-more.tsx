@@ -6,7 +6,7 @@ import { useInView } from "react-intersection-observer";
 import InfiniteScroll from "../InfiniteScroll/InfiniteScroll";
 
 const LoadMore = () => {
-  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [blogs, setBlogs] = useState<BlogList>([]);
   const [skip, setSkip] = useState<number>(3);
   const [endOfPage, setEndOfPage] = useState<boolean>(false);
 

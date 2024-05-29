@@ -11,7 +11,7 @@ async function getFeturedBlogs() {
 }
 
 async function FeaturedPosts() {
-  const featuredBlogs = await getFeturedBlogs();
+  const featuredBlogs: BlogList = await getFeturedBlogs();
   return (
     <div>
       <FeaturedPostCard posts={featuredBlogs} />

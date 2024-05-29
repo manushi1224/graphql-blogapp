@@ -17,17 +17,27 @@ function DeleteModal({
   catId,
   authId,
   isComment,
-  slug,
   postId,
-}: any) {
+}: {
+  id: string;
+  closePopup: (status: boolean) => void;
+  deletePostHandler: (status: boolean) => void;
+  imageId?: string;
+  catId?: string;
+  authId: string;
+  isComment?: boolean;
+  postId?: string;
+}) {
   const router = useRouter();
   const deletePost = async () => {
     const response = await axios.delete(
       `${process.env.NEXT_PUBLIC_API}/api/blog/handleBlog/${id}`
     );
     if (response.data.status === 200) {
-      await deleteAsset(imageId);
-      await publishCategory(catId);
+      if (imageId && catId) {
+        await deleteAsset(imageId);
+        await publishCategory(catId);
+      }
       await publishAuthor(authId);
       deletePostHandler(true);
     }
@@ -43,7 +53,9 @@ function DeleteModal({
     if (response.data.status === 200) {
       deletePostHandler(true);
       await publishAuthor(authId);
-      await publishPost(postId);
+      if (postId) {
+        await publishPost(postId);
+      }
     }
     router.refresh();
     closePopup(false);

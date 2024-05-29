@@ -10,9 +10,9 @@ async function getPostData(postId: string) {
   return post;
 }
 
-async function Page({ params }: any) {
+async function Page({ params }: { params: { postId: string } }) {
   const id = params.postId;
-  const { post } = await getPostData(id);
+  const { post }: { post: BlogList } = await getPostData(id);
 
   return (
     <div>

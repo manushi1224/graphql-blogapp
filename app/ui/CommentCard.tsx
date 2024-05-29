@@ -6,7 +6,7 @@ import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-function CommentCard({ comment, data }: { comment: any; data: any }) {
+function CommentCard({ comment, data }: { comment: CommentUser; data: any }) {
   const router = useRouter();
   const [deleteComment, setDeleteComment] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -49,7 +49,6 @@ function CommentCard({ comment, data }: { comment: any; data: any }) {
           deletePostHandler={deletePostHandler}
           isComment={true}
           authId={comment.node.authors[0].id}
-          slug={comment.node.post.slug}
           postId={comment.node.post.id}
         />
       )}

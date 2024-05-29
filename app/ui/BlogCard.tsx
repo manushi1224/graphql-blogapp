@@ -1,14 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 
-function BlogCard({ blogs }: any) {
+function BlogCard({ blogs }: { blogs: BlogList }) {
   if (blogs.length === 0) {
     return <div>No blogs to be shown</div>;
   }
-  
+
   return (
     <div className="w-full grid grid-cols-3 max-lg:grid-cols-2 gap-6 max-sm:grid-cols-1">
-      {blogs.map((blog: any, index: number) => {
+      {blogs.map((blog: { node: Blog }, index: number) => {
         return (
           <Link
             href={`/blog/${blog.node.slug}`}

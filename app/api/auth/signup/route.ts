@@ -6,7 +6,7 @@ import { CreateNextUserMutation } from "@/app/graphql/mutation";
 import client from "@/app/lib/client";
 
 export async function POST(req: NextRequest, res: NextResponse) {
-  const { email, password, bio, name }: any = await req.json();
+  const { email, password, bio, name }: Author = await req.json();
   if (!email || !password || !name || !bio) {
     return NextResponse.json({
       message: "Please fill all the fields",

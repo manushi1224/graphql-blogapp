@@ -2,12 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-function FeaturedPostCard({ posts }: any) {
-  return posts.map((post: any) => {
+function FeaturedPostCard({ posts }: { posts: BlogList }) {
+  return posts.map((post: { node: Blog }) => {
     return (
       <Link
         href={`${process.env.NEXT_PUBLIC_API}/blog/${post.node.slug}`}
-        key={post.id}
+        key={post.node.id}
       >
         <div className="max-w-sm w-full lg:max-w-full lg:flex rounded-xl mt-5">
           <div className="h-10 lg:h-auto lg:w-48 flex-none bg-cover rounded-l max-lg:rounded-t text-center overflow-hidden">

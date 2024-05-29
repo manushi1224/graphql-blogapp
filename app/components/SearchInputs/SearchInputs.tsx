@@ -18,7 +18,7 @@ export const SearchInput = ({ placeholder }: { placeholder: string }) => {
   }, 500);
 
   return (
-    <div className="search__input w-[70%] border-[2px] border-solid border-slate-500 flex flex-row items-center gap-4 px-1 my-3 rounded-[15px]">
+    <div className="search__input w-[70%] border-[2px] border-solid border-slate-500 flex flex-row items-center gap-3 px-1 my-3 rounded-[15px]">
       <label htmlFor="inputId" className="p-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +26,7 @@ export const SearchInput = ({ placeholder }: { placeholder: string }) => {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-6 h-6"
+          className="w-4 h-4"
         >
           <path
             strokeLinecap="round"
@@ -44,7 +44,7 @@ export const SearchInput = ({ placeholder }: { placeholder: string }) => {
           handleSearch(e.target.value);
         }}
         defaultValue={searchParams.get("query")?.toString()}
-        className="bg-[transparent] outline-none border-none w-full py-3 pl-2 pr-3"
+        className="bg-[transparent] outline-none border-none w-full py-2 pl-2 pr-3"
       />
     </div>
   );

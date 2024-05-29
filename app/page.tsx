@@ -31,7 +31,7 @@ export default function Home({
             <Blogs query={query} />
           </Suspense>
         </div>
-        <div className="col-span-4 fixed top-[3.8125rem] bottom-0 right-[max(0px,calc(50%-45rem))] w-[25rem] py-10 overflow-y-auto hidden xl:block">
+        <div className="col-span-4 fixed top-[3.8125rem] bottom-0 right-[max(0px,calc(50%-45rem))] w-[25rem] pt-14 pb-20 px-2 overflow-y-auto h-screen hidden xl:block featured-post">
           <h1 className="text-xl font-extrabold pb-4">Featured Posts</h1>
           <hr />
           <FeaturedPosts />

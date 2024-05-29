@@ -19,7 +19,7 @@ function FeaturedPostCard({ posts }: any) {
               width={300}
             />
           </div>
-          <div className="bg-gray-800 bg-opacity-90 rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+          <div className="bg-gray-800 bg-opacity-90 rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal w-full">
             <div className="">
               <div className="text-fuchsia-600 font-semibold text-sm">
                 {post.node.category.category}

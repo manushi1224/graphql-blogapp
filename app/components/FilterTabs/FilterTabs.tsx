@@ -3,9 +3,9 @@ import Link from "next/link";
 
 const activeClass = {
   active:
-    "inline-block px-4 py-3 max-sm:py-2 max-sm:text-sm max-sm:px-2 text-white bg-fuchsia-600 rounded-lg",
+    "inline-block px-3 py-2 max-sm:py-2 max-sm:text-sm max-sm:px-2 text-white bg-fuchsia-600 rounded-lg",
   inactive:
-    "inline-block px-4 py-3 max-sm:py-2 max-sm:px-2 rounded-lg max-sm:text-sm hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white",
+    "inline-block px-3 py-2 max-sm:py-2 max-sm:px-2 rounded-lg max-sm:text-sm hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white",
 };
 
 function FilterTabs({ category }: { category?: string }) {

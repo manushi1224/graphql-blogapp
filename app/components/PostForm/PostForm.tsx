@@ -3,14 +3,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import {
-  FormEvent,
-  MutableRefObject,
-  Ref,
-  RefObject,
-  useRef,
-  useState,
-} from "react";
+import { FormEvent, MutableRefObject, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import RichTextEditor from "../RichTextEditor/RichTextEditor";
 
@@ -93,7 +86,6 @@ export default function PostForm({
     } catch (error) {
       setLoading(false);
       toast.error("Something went wrong! Please try again later.");
-      console.log(error);
     }
   };
 
@@ -107,9 +99,13 @@ export default function PostForm({
           </h2>
         </div>
         <div className="mt-14 flex justify-center p-4">
-          <form onSubmit={(event) => onSignup(event)} method="POST">
-            <div className="flex justify-between gap-4 max-lg:flex-col max-lg:justify-center content-center">
-              <div className="mt-3">
+          <form
+            onSubmit={(event) => onSignup(event)}
+            method="POST"
+            className="space-y-4"
+          >
+            <div className="grid grid-cols-2 gap-4 max-lg:flex max-lg:flex-col max-lg:justify-center">
+              <div>
                 <label
                   htmlFor="title"
                   className="block text-base font-medium leading-6 text-gray-200"
@@ -127,26 +123,26 @@ export default function PostForm({
                     onChange={(e) =>
                       setFormData({ ...formData, title: e.target.value })
                     }
-                    className="block p-2 w-64 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                    className="block p-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                   ></input>
                 </div>
               </div>
-              <div className="mt-3">
+              <div>
                 <label
-                  htmlFor="countries"
+                  htmlFor="category"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Select an option
                 </label>
                 <select
-                  id="countries"
+                  id="category"
                   defaultValue={
                     editMode ? postData?.category?.category : "DEFAULT"
                   }
                   onChange={(e) => {
                     setFormData({ ...formData, category: e.target.value });
                   }}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-64 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option>Choose a Category</option>
                   <option value="Productivity">Productivity</option>
@@ -155,9 +151,9 @@ export default function PostForm({
               </div>
             </div>
 
-            <div className="mt-3">
+            <div>
               <label
-                htmlFor="category"
+                htmlFor="excerpt"
                 className="block text-base leading-6 text-gray-200"
               >
                 Excerpt
@@ -178,10 +174,7 @@ export default function PostForm({
               </div>
             </div>
 
-            <div className="mt-3">
-              <label htmlFor="featuredPost">
-                Do You want this post to be featured?
-              </label>
+            <div className="space-x-2">
               <input
                 type="checkbox"
                 id="featuredPost"
@@ -191,6 +184,9 @@ export default function PostForm({
                   setFeaturedPost(!featuredPost);
                 }}
               />
+              <label htmlFor="featuredPost">
+                Do You want this post to be featured?
+              </label>
             </div>
 
             <div className="my-3 w-[50%]">

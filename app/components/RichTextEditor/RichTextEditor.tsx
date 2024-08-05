@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import { Editor } from "@tinymce/tinymce-react";
 
 export default function RichTextEditor({
@@ -10,10 +9,9 @@ export default function RichTextEditor({
 }: any) {
   return (
     <>
-      <div className="w-full">
+      <div className="md:w-[40rem]">
         <Editor
           id="tinyMCE"
-          scriptLoading={{ async: true }}
           initialValue={editMode ? content : ""}
           onEditorChange={(event) => {
             handleEditorChange(event);

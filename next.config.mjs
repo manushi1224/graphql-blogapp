@@ -43,6 +43,11 @@ const nextConfig = {
       hostname: "media.graphassets.com",
       port: "",
       pathname: "/**"
+    }, {
+      protocol: "https",
+      hostname: "ap-south-1.graphassets.com",
+      port: "",
+      pathname: "/**"
     }]
   }
 };
